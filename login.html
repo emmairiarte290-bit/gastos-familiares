@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión - Gastos Familiares</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  
+  <style>
+    /* =========================================================
+       ESTILOS ESPECÍFICOS PARA EL LOGIN
+       ========================================================= */
+    
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 3rem 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(180, 100, 140, 0.15);
+      border: 1px solid rgba(240, 220, 228, 0.5);
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-card .logo-icon {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-card h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      color: var(--color-header);
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+
+    .login-card .subtitle {
+      text-align: center;
+      color: var(--color-text-light);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .login-card .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .login-card .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      font-size: 0.9rem;
+    }
+
+    .login-card .form-group label i {
+      margin-right: 6px;
+      color: var(--color-primary);
+    }
+
+    .login-card .form-group input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: 14px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      font-family: "Quicksand", sans-serif;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--color-text);
+    }
+
+    .login-card .form-group input:hover {
+      border-color: #d483a8;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .login-card .form-group input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 4px rgba(212, 131, 168, 0.12);
+      outline: none;
+      background: #ffffff;
+    }
+
+    .login-card .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 0.9rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .login-card .btn i {
+      margin-right: 8px;
+    }
+
+    .login-card .register-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--color-text-light);
+      font-size: 0.9rem;
+    }
+
+    .login-card .register-link a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .login-card .register-link a:hover {
+      color: var(--color-primary-dark);
+      text-decoration: underline;
+    }
+
+    .error-message {
+      background: rgba(232, 132, 160, 0.1);
+      color: var(--color-danger);
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      display: none;
+      font-size: 0.9rem;
+      text-align: center;
+      border: 1px solid rgba(232, 132, 160, 0.2);
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .error-message.show {
+      display: flex;
+    }
+
+    .success-message {
+      background: rgba(181, 160, 192, 0.1);
+      color: var(--color-success);
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      display: none;
+      font-size: 0.9rem;
+      text-align: center;
+      border: 1px solid rgba(181, 160, 192, 0.2);
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .success-message.show {
+      display: flex;
+    }
+
+    /* =========================================================
+       RESPONSIVE LOGIN
+       ========================================================= */
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 2rem 1.5rem;
+      }
+      .login-card h1 {
+        font-size: 1.6rem;
+      }
+      .login-card .subtitle {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== DECORACIONES DEL FONDO ====== -->
+  <div class="decorations">
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    
+    <div class="triangle"></div>
+    <div class="triangle"></div>
+    <div class="triangle"></div>
+    
+    <span class="heart">♥</span>
+    <span class="heart">♥</span>
+    <span class="heart">♥</span>
+    
+    <span class="flower">✿</span>
+    <span class="flower">✿</span>
+    <span class="flower">✿</span>
+  </div>
+
+  <!-- ====== LOGIN ====== -->
+  <div class="login-container">
+    <div class="login-card">
+      <div class="logo-icon">🌸</div>
+      <h1>Bienvenida</h1>
+      <p class="subtitle">Inicia sesión para administrar tus gastos</p>
+
+      <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorText">Error al iniciar sesión</span>
+      </div>
+
+      <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <span id="successText">¡Sesión iniciada correctamente!</span>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">
+            <i class="fas fa-envelope"></i> Email
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            placeholder="tu@email.com" 
+            required 
+            autocomplete="email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            <i class="fas fa-lock"></i> Contraseña
+          </label>
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="••••••••" 
+            required 
+            autocomplete="current-password"
+          />
+        </div>
+
+        <button type="submit" class="btn btn--primary" id="btnLogin">
+          <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+        </button>
+      </form>
+
+      <div class="register-link">
+        ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabaseClient.js"></script>
+  
+  <script>
+    // =========================================================
+    // LOGIN CON SUPABASE
+    // =========================================================
+
+    // Referencias
+    const loginForm = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+    const successMessage = document.getElementById('successMessage');
+    const btnLogin = document.getElementById('btnLogin');
+
+    // ====== FUNCIÓN PARA MOSTRAR ERROR ======
+    function showError(message) {
+      errorMessage.classList.add('show');
+      errorText.textContent = message;
+      successMessage.classList.remove('show');
+    }
+
+    // ====== FUNCIÓN PARA MOSTRAR ÉXITO ======
+    function showSuccess(message) {
+      successMessage.classList.add('show');
+      successText.textContent = message;
+      errorMessage.classList.remove('show');
+    }
+
+    // ====== FUNCIÓN PARA OCULTAR MENSAJES ======
+    function hideMessages() {
+      errorMessage.classList.remove('show');
+      successMessage.classList.remove('show');
+    }
+
+    // ====== EVENTO DEL FORMULARIO ======
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideMessages();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Validar campos
+      if (!email || !password) {
+        showError('Por favor, completa todos los campos.');
+        return;
+      }
+
+      // Validar formato de email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showError('Por favor, ingresa un email válido.');
+        return;
+      }
+
+      // Deshabilitar botón y mostrar loading
+      btnLogin.disabled = true;
+      btnLogin.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Iniciando sesión...';
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+        if (error) {
+          // Manejar errores específicos
+          if (error.message.includes('Invalid login credentials')) {
+            showError('Email o contraseña incorrectos. Por favor, verifica tus datos.');
+          } else if (error.message.includes('Email not confirmed')) {
+            showError('Por favor, confirma tu email antes de iniciar sesión.');
+          } else {
+            showError(error.message);
+          }
+          btnLogin.disabled = false;
+          btnLogin.innerHTML = '<i class="fas fa-sign-in-alt"></i> Iniciar sesión';
+          return;
+        }
+
+        // Éxito - mostrar mensaje y redirigir
+        showSuccess('¡Bienvenida! Redirigiendo...');
+        
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+
+      } catch (error) {
+        console.error('Error:', error);
+        showError('Error al conectar con el servidor. Intenta de nuevo.');
+        btnLogin.disabled = false;
+        btnLogin.innerHTML = '<i class="fas fa-sign-in-alt"></i> Iniciar sesión';
+      }
+    });
+
+    // ====== OCULTAR MENSAJES AL ESCRIBIR ======
+    document.querySelectorAll('#loginForm input').forEach(input => {
+      input.addEventListener('input', hideMessages);
+    });
+
+    // ====== VERIFICAR SI YA ESTÁ LOGUEADO ======
+    async function checkAuth() {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          // Si ya está logueado, redirigir al dashboard
+          window.location.href = 'index.html';
+        }
+      } catch (error) {
+        console.error('Error al verificar sesión:', error);
+      }
+    }
+
+    // ====== INICIALIZAR ======
+    document.addEventListener('DOMContentLoaded', checkAuth);
+  </script>
+</body>
+</html>
