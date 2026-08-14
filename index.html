@@ -4,14 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gastos Familiares</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <!-- ====== DECORACIONES DEL FONDO ====== -->
+  <div class="decorations">
+    <!-- Estrellas -->
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    
+    <!-- Cuadritos -->
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    
+    <!-- Puntos -->
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    
+    <!-- Líneas -->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    
+    <!-- Triángulos -->
+    <div class="triangle"></div>
+    <div class="triangle"></div>
+    <div class="triangle"></div>
+    
+    <!-- Corazones -->
+    <span class="heart">♥</span>
+    <span class="heart">♥</span>
+    <span class="heart">♥</span>
+    
+    <!-- Flores -->
+    <span class="flower">✿</span>
+    <span class="flower">✿</span>
+    <span class="flower">✿</span>
+  </div>
+
   <!-- HEADER -->
   <header class="header">
     <div class="header__left">
-      <span class="header__logo">💰 Gastos Familiares</span>
+      <span class="header__logo">🌸 Gastos Familiares</span>
     </div>
     <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú">
       <span></span>
@@ -19,9 +81,9 @@
       <span></span>
     </button>
     <nav class="nav" id="navMenu">
-      <a href="#dashboard" class="nav__link">Dashboard</a>
-      <a href="#nuevo-gasto" class="nav__link">Nuevo gasto</a>
-      <a href="#lista-gastos" class="nav__link">Mis gastos</a>
+      <a href="#dashboard" class="nav__link"><i class="fas fa-chart-pie"></i> Dashboard</a>
+      <a href="#nuevo-gasto" class="nav__link"><i class="fas fa-plus-circle"></i> Nuevo gasto</a>
+      <a href="#lista-gastos" class="nav__link"><i class="fas fa-list"></i> Mis gastos</a>
     </nav>
   </header>
 
@@ -30,97 +92,135 @@
     <!-- SECCIÓN: FOTO FAMILIAR -->
     <section class="familia-card">
       <div class="familia-card__foto">
-        <img id="fotoFamiliar" src="" alt="Foto familiar" />
+        <img id="fotoFamiliar" src="https://i.pravatar.cc/150?img=1" alt="Foto familiar" />
       </div>
       <div class="familia-card__info">
-        <h2 id="nombreFamilia">Mi Familia</h2>
-        <label class="btn btn--secondary" for="inputFoto">Subir / cambiar foto</label>
+        <h2 id="nombreFamilia">Mi Familia ✨</h2>
+        <p style="opacity:0.7; font-size:0.9rem; margin-bottom:0.8rem;">
+          <i class="fas fa-users" style="margin-right:6px;"></i> 
+          Administra los gastos de tu hogar
+        </p>
+        <label class="btn btn--secondary" for="inputFoto">
+          <i class="fas fa-camera"></i> Subir foto
+        </label>
         <input type="file" id="inputFoto" accept="image/*" hidden />
       </div>
     </section>
 
     <!-- DASHBOARD -->
     <section id="dashboard" class="dashboard">
-      <h2 class="section-title">Dashboard</h2>
+      <h2 class="section-title">
+        <i class="fas fa-chart-line" style="color:var(--color-primary); margin-right:8px;"></i>
+        Dashboard
+      </h2>
 
       <div class="stats-grid">
         <div class="stat-card">
-          <span class="stat-card__label">Total gastado</span>
+          <span class="stat-card__label">
+            <i class="fas fa-coins"></i> Total gastado
+          </span>
           <span class="stat-card__value" id="statTotal">Bs. 0</span>
         </div>
         <div class="stat-card">
-          <span class="stat-card__label">Gastos este mes</span>
+          <span class="stat-card__label">
+            <i class="fas fa-calendar-alt"></i> Gastos este mes
+          </span>
           <span class="stat-card__value" id="statMes">Bs. 0</span>
         </div>
         <div class="stat-card">
-          <span class="stat-card__label">N° de registros</span>
+          <span class="stat-card__label">
+            <i class="fas fa-receipt"></i> N° de registros
+          </span>
           <span class="stat-card__value" id="statCantidad">0</span>
         </div>
         <div class="stat-card">
-          <span class="stat-card__label">Categoría top</span>
+          <span class="stat-card__label">
+            <i class="fas fa-trophy"></i> Categoría top
+          </span>
           <span class="stat-card__value" id="statCategoriaTop">-</span>
         </div>
       </div>
 
       <div class="categorias-breakdown">
-        <h3 class="section-subtitle">Gastos por categoría</h3>
+        <h3 class="section-subtitle">
+          <i class="fas fa-pie-chart" style="color:var(--color-primary); margin-right:8px;"></i>
+          Gastos por categoría
+        </h3>
         <div id="categoriasContainer"></div>
       </div>
     </section>
 
     <!-- FORMULARIO NUEVO GASTO -->
     <section id="nuevo-gasto" class="form-section">
-      <h2 class="section-title">Registrar nuevo gasto</h2>
+      <h2 class="section-title">
+        <i class="fas fa-plus-circle" style="color:var(--color-primary); margin-right:8px;"></i>
+        Registrar nuevo gasto
+      </h2>
       <form id="formGasto" class="form-gasto">
         <input type="hidden" id="gastoId" />
 
         <div class="form-group">
-          <label for="descripcion">Descripción</label>
+          <label for="descripcion">
+            <i class="fas fa-pencil-alt"></i> Descripción
+          </label>
           <input type="text" id="descripcion" required placeholder="Ej: Compra supermercado" />
         </div>
 
         <div class="form-group">
-          <label for="monto">Monto (Bs.)</label>
+          <label for="monto">
+            <i class="fas fa-dollar-sign"></i> Monto (Bs.)
+          </label>
           <input type="number" id="monto" step="0.01" min="0" required placeholder="0.00" />
         </div>
 
         <div class="form-group">
-          <label for="categoria">Categoría</label>
+          <label for="categoria">
+            <i class="fas fa-tag"></i> Categoría
+          </label>
           <select id="categoria">
-            <option value="Alimentación">Alimentación</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Servicios">Servicios</option>
-            <option value="Salud">Salud</option>
-            <option value="Educación">Educación</option>
-            <option value="Entretenimiento">Entretenimiento</option>
-            <option value="Otros">Otros</option>
+            <option value="Alimentación">🍕 Alimentación</option>
+            <option value="Transporte">🚗 Transporte</option>
+            <option value="Servicios">💡 Servicios</option>
+            <option value="Salud">🏥 Salud</option>
+            <option value="Educación">📚 Educación</option>
+            <option value="Entretenimiento">🎮 Entretenimiento</option>
+            <option value="Otros">📦 Otros</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="fecha">Fecha</label>
+          <label for="fecha">
+            <i class="fas fa-calendar-day"></i> Fecha
+          </label>
           <input type="date" id="fecha" required />
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn--primary" id="btnGuardar">Guardar gasto</button>
-          <button type="button" class="btn btn--ghost" id="btnCancelar" hidden>Cancelar edición</button>
+          <button type="submit" class="btn btn--primary" id="btnGuardar">
+            <i class="fas fa-save"></i> Guardar gasto
+          </button>
+          <button type="button" class="btn btn--ghost" id="btnCancelar" hidden>
+            <i class="fas fa-times"></i> Cancelar edición
+          </button>
         </div>
       </form>
     </section>
 
     <!-- LISTA DE GASTOS -->
     <section id="lista-gastos" class="lista-section">
-      <h2 class="section-title">Mis gastos</h2>
+      <h2 class="section-title">
+        <i class="fas fa-list-ul" style="color:var(--color-primary); margin-right:8px;"></i>
+        Mis gastos
+      </h2>
       <div class="tabla-wrapper">
         <table class="tabla-gastos">
           <thead>
             <tr>
-              <th>Descripción</th>
-              <th>Categoría</th>
-              <th>Monto</th>
-              <th>Fecha</th>
-              <th>Acciones</th>
+              <th><i class="fas fa-pencil-alt"></i> Descripción</th>
+              <th><i class="fas fa-tag"></i> Categoría</th>
+              <th><i class="fas fa-dollar-sign"></i> Monto</th>
+              <th><i class="fas fa-calendar-alt"></i> Fecha</th>
+              <th><i class="fas fa-cogs"></i> Acciones</th>
             </tr>
           </thead>
           <tbody id="tablaGastosBody">
@@ -133,11 +233,251 @@
   </main>
 
   <footer class="footer">
-    <p>Proyecto educativo · Técnico Medio en Sistemas Informáticos</p>
+    <p>
+      <i class="fas fa-heart"></i>
+      Proyecto educativo · Técnico Medio en Sistemas Informáticos
+      <i class="fas fa-heart"></i>
+    </p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabaseClient.js"></script>
   <script src="js/app.js"></script>
+  
+  <script>
+    // ====== MENÚ HAMBURGUESA ======
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+
+    // ====== SUBIR FOTO ======
+    const inputFoto = document.getElementById('inputFoto');
+    const fotoFamiliar = document.getElementById('fotoFamiliar');
+
+    inputFoto.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          fotoFamiliar.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // ====== FECHA POR DEFECTO ======
+    document.getElementById('fecha').valueAsDate = new Date();
+
+    // ====== FUNCIÓN PARA FORMATEAR MONTO ======
+    function formatMoney(amount) {
+      return 'Bs. ' + Number(amount).toFixed(2);
+    }
+
+    // ====== FUNCIÓN PARA CREAR FILA DE TABLA ======
+    function createTableRow(gasto) {
+      const tr = document.createElement('tr');
+      
+      tr.innerHTML = `
+        <td data-label="Descripción">${gasto.descripcion}</td>
+        <td data-label="Categoría"><span class="categoria-badge">${gasto.categoria}</span></td>
+        <td data-label="Monto">${formatMoney(gasto.monto)}</td>
+        <td data-label="Fecha">${new Date(gasto.fecha).toLocaleDateString('es-ES')}</td>
+        <td data-label="Acciones">
+          <div class="acciones">
+            <button class="btn btn--edit btn--small editar-gasto" data-id="${gasto.id}">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn--delete btn--small eliminar-gasto" data-id="${gasto.id}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      `;
+      
+      return tr;
+    }
+
+    // ====== FUNCIÓN PARA ACTUALIZAR DASHBOARD ======
+    function updateDashboard(gastos) {
+      // Total general
+      const total = gastos.reduce((sum, g) => sum + g.monto, 0);
+      document.getElementById('statTotal').textContent = formatMoney(total);
+      
+      // Total del mes
+      const now = new Date();
+      const mesActual = now.getMonth();
+      const añoActual = now.getFullYear();
+      
+      const gastosMes = gastos.filter(g => {
+        const fecha = new Date(g.fecha);
+        return fecha.getMonth() === mesActual && fecha.getFullYear() === añoActual;
+      });
+      
+      const totalMes = gastosMes.reduce((sum, g) => sum + g.monto, 0);
+      document.getElementById('statMes').textContent = formatMoney(totalMes);
+      
+      // Cantidad de registros
+      document.getElementById('statCantidad').textContent = gastos.length;
+      
+      // Categoría top
+      if (gastos.length === 0) {
+        document.getElementById('statCategoriaTop').textContent = '-';
+        return;
+      }
+      
+      const categorias = {};
+      gastos.forEach(g => {
+        categorias[g.categoria] = (categorias[g.categoria] || 0) + g.monto;
+      });
+      
+      let topCategoria = '';
+      let topMonto = 0;
+      for (const [cat, monto] of Object.entries(categorias)) {
+        if (monto > topMonto) {
+          topMonto = monto;
+          topCategoria = cat;
+        }
+      }
+      document.getElementById('statCategoriaTop').textContent = topCategoria;
+      
+      // Actualizar barras de categorías
+      updateCategorias(categorias);
+    }
+
+    // ====== FUNCIÓN PARA ACTUALIZAR BARRAS ======
+    function updateCategorias(categorias) {
+      const container = document.getElementById('categoriasContainer');
+      container.innerHTML = '';
+      
+      const total = Object.values(categorias).reduce((sum, val) => sum + val, 0);
+      
+      if (total === 0) {
+        container.innerHTML = '<p style="color:var(--color-text-light); text-align:center; padding:1rem;">No hay gastos registrados</p>';
+        return;
+      }
+      
+      // Ordenar de mayor a menor
+      const sorted = Object.entries(categorias).sort((a, b) => b[1] - a[1]);
+      
+      sorted.forEach(([categoria, monto]) => {
+        const porcentaje = (monto / total) * 100;
+        
+        const div = document.createElement('div');
+        div.className = 'categoria-bar';
+        div.innerHTML = `
+          <div class="categoria-bar__label">
+            <span>${categoria}</span>
+            <span>${formatMoney(monto)} (${porcentaje.toFixed(1)}%)</span>
+          </div>
+          <div class="categoria-bar__track">
+            <div class="categoria-bar__fill" style="width: ${porcentaje}%;"></div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // ====== DATOS DE EJEMPLO ======
+    const datosEjemplo = [
+      { id: 1, descripcion: 'Supermercado', categoria: 'Alimentación', monto: 450.00, fecha: '2026-01-15' },
+      { id: 2, descripcion: 'Pasaje bus', categoria: 'Transporte', monto: 80.00, fecha: '2026-01-16' },
+      { id: 3, descripcion: 'Luz eléctrica', categoria: 'Servicios', monto: 320.00, fecha: '2026-01-10' },
+      { id: 4, descripcion: 'Cena familiar', categoria: 'Entretenimiento', monto: 200.00, fecha: '2026-01-20' },
+      { id: 5, descripcion: 'Medicinas', categoria: 'Salud', monto: 150.00, fecha: '2026-01-18' },
+      { id: 6, descripcion: 'Libros', categoria: 'Educación', monto: 180.00, fecha: '2026-01-12' },
+    ];
+    
+    // Cargar datos de ejemplo
+    const tbody = document.getElementById('tablaGastosBody');
+    datosEjemplo.forEach(gasto => {
+      tbody.appendChild(createTableRow(gasto));
+    });
+    updateDashboard(datosEjemplo);
+    
+    // ====== EVENTOS PARA BOTONES DE EJEMPLO ======
+    document.querySelectorAll('.eliminar-gasto').forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (confirm('¿Seguro que quieres eliminar este gasto?')) {
+          this.closest('tr').remove();
+          alert('Gasto eliminado ✅');
+        }
+      });
+    });
+    
+    document.querySelectorAll('.editar-gasto').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const id = this.dataset.id;
+        const row = this.closest('tr');
+        const descripcion = row.querySelector('td[data-label="Descripción"]').textContent;
+        const monto = row.querySelector('td[data-label="Monto"]').textContent.replace('Bs. ', '');
+        const categoria = row.querySelector('td[data-label="Categoría"]').textContent;
+        const fecha = row.querySelector('td[data-label="Fecha"]').textContent;
+        
+        document.getElementById('gastoId').value = id;
+        document.getElementById('descripcion').value = descripcion;
+        document.getElementById('monto').value = monto;
+        document.getElementById('categoria').value = categoria;
+        
+        // Convertir fecha de formato español a YYYY-MM-DD
+        const partes = fecha.split('/');
+        const fechaFormateada = `${partes[2]}-${partes[1].padStart(2,'0')}-${partes[0].padStart(2,'0')}`;
+        document.getElementById('fecha').value = fechaFormateada;
+        
+        document.getElementById('btnGuardar').textContent = 'Actualizar gasto';
+        document.getElementById('btnCancelar').hidden = false;
+        
+        // Scroll al formulario
+        document.getElementById('nuevo-gasto').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    
+    document.getElementById('btnCancelar').addEventListener('click', function() {
+      document.getElementById('formGasto').reset();
+      document.getElementById('gastoId').value = '';
+      document.getElementById('btnGuardar').textContent = 'Guardar gasto';
+      this.hidden = true;
+      document.getElementById('fecha').valueAsDate = new Date();
+    });
+    
+    // ====== FORMULARIO ======
+    document.getElementById('formGasto').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const id = document.getElementById('gastoId').value;
+      const descripcion = document.getElementById('descripcion').value;
+      const monto = parseFloat(document.getElementById('monto').value);
+      const categoria = document.getElementById('categoria').value;
+      const fecha = document.getElementById('fecha').value;
+      
+      if (!descripcion || !monto || !fecha) {
+        alert('Por favor, completa todos los campos.');
+        return;
+      }
+      
+      if (id) {
+        alert(`Gasto #${id} actualizado ✅`);
+        document.getElementById('btnCancelar').click();
+      } else {
+        const nuevoGasto = { id: Date.now(), descripcion, monto, categoria, fecha };
+        const tbody = document.getElementById('tablaGastosBody');
+        tbody.appendChild(createTableRow(nuevoGasto));
+        alert('Gasto guardado correctamente ✅');
+        this.reset();
+        document.getElementById('fecha').valueAsDate = new Date();
+      }
+    });
+  </script>
 </body>
 </html>
