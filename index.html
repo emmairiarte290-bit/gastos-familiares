@@ -70,21 +70,37 @@
     <span class="flower">✿</span>
   </div>
 
-  <!-- HEADER -->
+  <!-- ====== HEADER CON BOTÓN DE CERRAR SESIÓN ====== -->
   <header class="header">
     <div class="header__left">
       <span class="header__logo">🌸 Gastos Familiares</span>
     </div>
+    
     <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú">
       <span></span>
       <span></span>
       <span></span>
     </button>
+    
     <nav class="nav" id="navMenu">
       <a href="#dashboard" class="nav__link"><i class="fas fa-chart-pie"></i> Dashboard</a>
       <a href="#nuevo-gasto" class="nav__link"><i class="fas fa-plus-circle"></i> Nuevo gasto</a>
       <a href="#lista-gastos" class="nav__link"><i class="fas fa-list"></i> Mis gastos</a>
     </nav>
+
+    <!-- ====== BOTÓN DE CERRAR SESIÓN ====== -->
+    <div class="header__right">
+      <div class="user-info">
+        <span class="user-email" id="userEmail">
+          <i class="fas fa-user-circle"></i> usuario@email.com
+        </span>
+        <button class="btn btn--logout" id="btnLogout">
+          <i class="fas fa-sign-out-alt"></i> 
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </div>
+    <!-- ====== FIN BOTÓN CERRAR SESIÓN ====== -->
   </header>
 
   <main class="main">
@@ -245,7 +261,9 @@
   <script src="js/app.js"></script>
   
   <script>
-    // ====== MENÚ HAMBURGUESA ======
+    // =========================================================
+    // MENÚ HAMBURGUESA
+    // =========================================================
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const navMenu = document.getElementById('navMenu');
 
@@ -254,7 +272,6 @@
       navMenu.classList.toggle('active');
     });
 
-    // Cerrar menú al hacer clic en un enlace
     document.querySelectorAll('.nav__link').forEach(link => {
       link.addEventListener('click', () => {
         hamburgerBtn.classList.remove('active');
@@ -262,7 +279,9 @@
       });
     });
 
-    // ====== SUBIR FOTO ======
+    // =========================================================
+    // SUBIR FOTO
+    // =========================================================
     const inputFoto = document.getElementById('inputFoto');
     const fotoFamiliar = document.getElementById('fotoFamiliar');
 
@@ -277,15 +296,18 @@
       }
     });
 
-    // ====== FECHA POR DEFECTO ======
+    // =========================================================
+    // FECHA POR DEFECTO
+    // =========================================================
     document.getElementById('fecha').valueAsDate = new Date();
 
-    // ====== FUNCIÓN PARA FORMATEAR MONTO ======
+    // =========================================================
+    // FUNCIONES DE UTILIDAD
+    // =========================================================
     function formatMoney(amount) {
       return 'Bs. ' + Number(amount).toFixed(2);
     }
 
-    // ====== FUNCIÓN PARA CREAR FILA DE TABLA ======
     function createTableRow(gasto) {
       const tr = document.createElement('tr');
       
@@ -309,13 +331,13 @@
       return tr;
     }
 
-    // ====== FUNCIÓN PARA ACTUALIZAR DASHBOARD ======
+    // =========================================================
+    // DASHBOARD
+    // =========================================================
     function updateDashboard(gastos) {
-      // Total general
       const total = gastos.reduce((sum, g) => sum + g.monto, 0);
       document.getElementById('statTotal').textContent = formatMoney(total);
       
-      // Total del mes
       const now = new Date();
       const mesActual = now.getMonth();
       const añoActual = now.getFullYear();
@@ -328,10 +350,8 @@
       const totalMes = gastosMes.reduce((sum, g) => sum + g.monto, 0);
       document.getElementById('statMes').textContent = formatMoney(totalMes);
       
-      // Cantidad de registros
       document.getElementById('statCantidad').textContent = gastos.length;
       
-      // Categoría top
       if (gastos.length === 0) {
         document.getElementById('statCategoriaTop').textContent = '-';
         return;
@@ -352,11 +372,9 @@
       }
       document.getElementById('statCategoriaTop').textContent = topCategoria;
       
-      // Actualizar barras de categorías
       updateCategorias(categorias);
     }
 
-    // ====== FUNCIÓN PARA ACTUALIZAR BARRAS ======
     function updateCategorias(categorias) {
       const container = document.getElementById('categoriasContainer');
       container.innerHTML = '';
@@ -368,7 +386,6 @@
         return;
       }
       
-      // Ordenar de mayor a menor
       const sorted = Object.entries(categorias).sort((a, b) => b[1] - a[1]);
       
       sorted.forEach(([categoria, monto]) => {
@@ -389,7 +406,9 @@
       });
     }
 
-    // ====== DATOS DE EJEMPLO ======
+    // =========================================================
+    // DATOS DE EJEMPLO
+    // =========================================================
     const datosEjemplo = [
       { id: 1, descripcion: 'Supermercado', categoria: 'Alimentación', monto: 450.00, fecha: '2026-01-15' },
       { id: 2, descripcion: 'Pasaje bus', categoria: 'Transporte', monto: 80.00, fecha: '2026-01-16' },
@@ -399,14 +418,15 @@
       { id: 6, descripcion: 'Libros', categoria: 'Educación', monto: 180.00, fecha: '2026-01-12' },
     ];
     
-    // Cargar datos de ejemplo
     const tbody = document.getElementById('tablaGastosBody');
     datosEjemplo.forEach(gasto => {
       tbody.appendChild(createTableRow(gasto));
     });
     updateDashboard(datosEjemplo);
     
-    // ====== EVENTOS PARA BOTONES DE EJEMPLO ======
+    // =========================================================
+    // EVENTOS DE EJEMPLO
+    // =========================================================
     document.querySelectorAll('.eliminar-gasto').forEach(btn => {
       btn.addEventListener('click', function() {
         if (confirm('¿Seguro que quieres eliminar este gasto?')) {
@@ -430,7 +450,6 @@
         document.getElementById('monto').value = monto;
         document.getElementById('categoria').value = categoria;
         
-        // Convertir fecha de formato español a YYYY-MM-DD
         const partes = fecha.split('/');
         const fechaFormateada = `${partes[2]}-${partes[1].padStart(2,'0')}-${partes[0].padStart(2,'0')}`;
         document.getElementById('fecha').value = fechaFormateada;
@@ -438,7 +457,6 @@
         document.getElementById('btnGuardar').textContent = 'Actualizar gasto';
         document.getElementById('btnCancelar').hidden = false;
         
-        // Scroll al formulario
         document.getElementById('nuevo-gasto').scrollIntoView({ behavior: 'smooth' });
       });
     });
@@ -451,7 +469,9 @@
       document.getElementById('fecha').valueAsDate = new Date();
     });
     
-    // ====== FORMULARIO ======
+    // =========================================================
+    // FORMULARIO
+    // =========================================================
     document.getElementById('formGasto').addEventListener('submit', function(e) {
       e.preventDefault();
       
@@ -478,6 +498,76 @@
         document.getElementById('fecha').valueAsDate = new Date();
       }
     });
+
+    // =========================================================
+    // CERRAR SESIÓN CON SUPABASE
+    // =========================================================
+    const btnLogout = document.getElementById('btnLogout');
+    const userEmail = document.getElementById('userEmail');
+
+    // Mostrar usuario logueado
+    async function mostrarUsuario() {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+          userEmail.innerHTML = `<i class="fas fa-user-circle"></i> ${session.user.email}`;
+        } else {
+          window.location.href = 'login.html';
+        }
+      } catch (error) {
+        console.error('Error al obtener sesión:', error);
+      }
+    }
+
+    // Cerrar sesión
+    async function cerrarSesion() {
+      if (!confirm('¿Seguro que quieres cerrar sesión?')) {
+        return;
+      }
+
+      try {
+        btnLogout.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cerrando...';
+        btnLogout.disabled = true;
+
+        const { error } = await supabase.auth.signOut();
+        
+        if (error) {
+          console.error('Error al cerrar sesión:', error);
+          alert('Error: ' + error.message);
+          btnLogout.innerHTML = '<i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span>';
+          btnLogout.disabled = false;
+          return;
+        }
+        
+        window.location.href = 'login.html';
+        
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error al cerrar sesión');
+        btnLogout.innerHTML = '<i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span>';
+        btnLogout.disabled = false;
+      }
+    }
+
+    // Escuchar cambios en autenticación
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        userEmail.innerHTML = `<i class="fas fa-user-circle"></i> ${session.user.email}`;
+      }
+      
+      if (event === 'SIGNED_OUT') {
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Asignar evento al botón
+    if (btnLogout) {
+      btnLogout.addEventListener('click', cerrarSesion);
+    }
+
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', mostrarUsuario);
   </script>
 </body>
 </html>
