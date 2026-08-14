@@ -90,9 +90,9 @@
 
     <!-- ====== BOTÓN DE CERRAR SESIÓN ====== -->
     <div class="header__right">
-      <div class="user-info">
+      <div class="user-info" id="userInfo">
         <span class="user-email" id="userEmail">
-          <i class="fas fa-user-circle"></i> usuario@email.com
+          <i class="fas fa-user-circle"></i> cargando...
         </span>
         <button class="btn btn--logout" id="btnLogout">
           <i class="fas fa-sign-out-alt"></i> 
@@ -256,11 +256,45 @@
     </p>
   </footer>
 
+  <!-- ====== SCRIPTS ====== -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabaseClient.js"></script>
-  <script src="js/app.js"></script>
   
   <script>
+    // =========================================================
+    // VERIFICAR SESIÓN - REDIRIGIR AL LOGIN SI NO ESTÁ LOGUEADO
+    // =========================================================
+    
+    async function verificarSesion() {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        if (error) {
+          console.error('Error al verificar sesión:', error);
+          window.location.href = 'login.html';
+          return;
+        }
+        
+        if (!session) {
+          // No hay sesión - redirigir al login
+          console.log('⚠️ Usuario no logueado, redirigiendo a login...');
+          window.location.href = 'login.html';
+          return;
+        }
+        
+        // ✅ Usuario logueado - mostrar su email
+        console.log('✅ Usuario logueado:', session.user.email);
+        document.getElementById('userEmail').innerHTML = 
+          `<i class="fas fa-user-circle"></i> ${session.user.email}`;
+        
+        return session;
+        
+      } catch (error) {
+        console.error('Error:', error);
+        window.location.href = 'login.html';
+      }
+    }
+
     // =========================================================
     // MENÚ HAMBURGUESA
     // =========================================================
@@ -505,21 +539,6 @@
     const btnLogout = document.getElementById('btnLogout');
     const userEmail = document.getElementById('userEmail');
 
-    // Mostrar usuario logueado
-    async function mostrarUsuario() {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (session) {
-          userEmail.innerHTML = `<i class="fas fa-user-circle"></i> ${session.user.email}`;
-        } else {
-          window.location.href = 'login.html';
-        }
-      } catch (error) {
-        console.error('Error al obtener sesión:', error);
-      }
-    }
-
     // Cerrar sesión
     async function cerrarSesion() {
       if (!confirm('¿Seguro que quieres cerrar sesión?')) {
@@ -566,8 +585,13 @@
       btnLogout.addEventListener('click', cerrarSesion);
     }
 
-    // Inicializar
-    document.addEventListener('DOMContentLoaded', mostrarUsuario);
+    // =========================================================
+    // INICIALIZAR - VERIFICAR SESIÓN
+    // =========================================================
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Verificar sesión - esto redirige al login si no hay sesión
+      await verificarSesion();
+    });
   </script>
 </body>
 </html>
